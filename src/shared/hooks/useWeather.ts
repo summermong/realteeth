@@ -8,7 +8,7 @@ import type { ICoordinates } from '../types';
 
 export const useCurrentWeather = (coords: ICoordinates | null) => {
   return useQuery({
-    queryKey: ['weather', 'current', coords],
+    queryKey: ['weather', 'current', coords?.lat, coords?.lon],
     queryFn: () => fetchCurrentWeather(coords!),
     enabled: coords !== null,
   });
@@ -16,7 +16,7 @@ export const useCurrentWeather = (coords: ICoordinates | null) => {
 
 export const useWeatherForecast = (coords: ICoordinates | null) => {
   return useQuery({
-    queryKey: ['weather', 'forecast', coords],
+    queryKey: ['weather', 'forecast', coords?.lat, coords?.lon],
     queryFn: () => fetchWeatherForecast(coords!),
     enabled: coords !== null,
   });
