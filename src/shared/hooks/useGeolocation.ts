@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import type { ICoordinates } from '../types';
+import { fetchAddressByCoords } from '../api/weather';
 
 interface IGeolocationState {
   coords: ICoordinates | null;
+  locationName: string | null;
   isLoading: boolean;
   error: string | null;
 }
@@ -10,6 +12,7 @@ interface IGeolocationState {
 export const useGeolocation = () => {
   const [state, setState] = useState<IGeolocationState>({
     coords: null,
+    locationName: null,
     isLoading: true,
     error: null,
   });
@@ -19,6 +22,7 @@ export const useGeolocation = () => {
       console.error('브라우저가 위치 정보를 지원하지 않습니다.');
       setState({
         coords: null,
+        locationName: null,
         isLoading: false,
         error: '브라우저가 위치 정보를 지원하지 않습니다.',
       });
@@ -26,17 +30,34 @@ export const useGeolocation = () => {
     }
 
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setState({
-          coords: {
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-          },
-          isLoading: false,
-          error: null,
-        });
+      async position => {
+        const coords = {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+        };
+
+        try {
+          // 카카오 API를 사용해 좌표를 한글 주소로 변환
+          const locationName = await fetchAddressByCoords(coords);
+          setState({
+            coords,
+            locationName,
+            isLoading: false,
+            error: null,
+          });
+        } catch (addressError) {
+          console.error('Failed to fetch address:', addressError);
+
+          // 주소 변환 실패해도 좌표는 사용 가능하도록
+          setState({
+            coords,
+            locationName: null,
+            isLoading: false,
+            error: null,
+          });
+        }
       },
-      (error) => {
+      error => {
         console.error('Geolocation error:', error);
         let errorMessage = '위치 정보를 가져올 수 없습니다.';
 
@@ -54,6 +75,7 @@ export const useGeolocation = () => {
 
         setState({
           coords: null,
+          locationName: null,
           isLoading: false,
           error: errorMessage,
         });
