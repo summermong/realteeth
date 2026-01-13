@@ -4,7 +4,7 @@ import { Main } from '../pages/Main';
 function App() {
   return (
     <AppProviders>
-      <div className='min-h-screen bg-gray-100'>
+      <div className='min-h-screen p-6 bg-gray-100'>
         <Main />
       </div>
     </AppProviders>
