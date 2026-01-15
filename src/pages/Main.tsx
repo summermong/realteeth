@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { useCurrentWeather } from '../shared/hooks/useWeather';
+import {
+  useCurrentWeather,
+  useWeatherForecast,
+} from '../shared/hooks/useWeather';
 import { useGeolocation } from '../shared/hooks/useGeolocation';
 import {
   useDistrictSearch,
@@ -28,6 +31,8 @@ export const Main = () => {
   const locationName = selectedLocation?.displayName || userLocationName;
   const { data: weather, isLoading: isLoadingWeather } =
     useCurrentWeather(coords);
+  const { data: forecast, isLoading: isLoadingForecast } =
+    useWeatherForecast(coords);
 
   const handleLocationSelect = async (location: IDistrictLocation) => {
     try {
@@ -57,9 +62,10 @@ export const Main = () => {
             weather={weather}
             isLoading={isLoadingWeather || isLoadingLocation}
             locationName={locationName}
+            forecast={forecast}
+            isForecastLoading={isLoadingForecast}
           />
         </section>
-
         <section>
           <div className='flex items-center justify-between mb-4'>
             <h2 className='text-xl font-semibold text-gray-800'>
