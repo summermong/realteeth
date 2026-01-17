@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MapPin, X, Edit2, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useCurrentWeather, useWeatherForecast } from '@/shared/hooks/useWeather';
+import { useCurrentWeather } from '@/shared/hooks/useWeather';
 import type { ICoordinates } from '@/shared/types';
 
 export interface IFavorite {
@@ -36,8 +36,6 @@ export const FavoriteCard = ({
   const { data: weather, isLoading: isLoadingWeather } = useCurrentWeather(
     favorite.coords
   );
-
-  useWeatherForecast(favorite.coords);
 
   const handleSave = () => {
     onUpdateName(favorite.id, editName);
