@@ -79,9 +79,9 @@ export const CurrentWeatherCard = ({
       <div className='flex items-start justify-between mb-4'>
         <div className='flex items-center gap-2'>
           <MapPin className='w-5 h-5 text-blue-600 dark:text-blue-400' />
-          <h2 className='text-xl font-semibold text-gray-800 dark:text-foreground'>
+          <div className='text-lg font-semibold text-gray-800 dark:text-foreground'>
             {locationName}
-          </h2>
+          </div>
         </div>
       </div>
 
@@ -112,11 +112,15 @@ export const CurrentWeatherCard = ({
         </div>
       </div>
 
-      {!isForecastLoading && hourlyData.length > 0 && (
-        <div>
-          <h3 className='mb-4 text-base font-semibold text-gray-800 dark:text-foreground'>
-            시간대별 기온
-          </h3>
+      <div>
+        <h3 className='mb-4 text-base font-semibold text-gray-800 dark:text-foreground'>
+          시간대별 기온
+        </h3>
+        {isForecastLoading ? (
+          <div className='flex items-center justify-center h-32'>
+            <div className='w-8 h-8 border-4 border-blue-500 rounded-full border-t-transparent animate-spin'></div>
+          </div>
+        ) : hourlyData.length > 0 ? (
           <div className='overflow-x-auto'>
             <div className='flex gap-3 pb-2 w-max'>
               {hourlyData.map((item, index) => (
@@ -153,8 +157,8 @@ export const CurrentWeatherCard = ({
               ))}
             </div>
           </div>
-        </div>
-      )}
+        ) : null}
+      </div>
     </div>
   );
 };
