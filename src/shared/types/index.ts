@@ -3,6 +3,18 @@ export interface ICoordinates {
   lon: number;
 }
 
+export interface IFavorite {
+  id: string;
+  displayName: string;
+  customName?: string;
+  fullName: string;
+  sido: string;
+  si: string;
+  gu: string;
+  dong: string;
+  coords: ICoordinates;
+}
+
 export interface IDistrict {
   sido: string;
   sigungu?: string;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { IFavorite } from '@/components/weather/FavoriteCard';
+import type { IFavorite } from '@/shared/types';
 import type { IDistrictLocation } from './useDistrictSearch';
 import {
   loadFavorites,

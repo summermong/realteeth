@@ -1,4 +1,4 @@
-import type { IFavorite } from '@/components/weather/FavoriteCard';
+import type { IFavorite } from '@/shared/types';
 import type { IDistrictLocation } from '../hooks/useDistrictSearch';
 import { FAVORITES_STORAGE_KEY } from '../config';
 

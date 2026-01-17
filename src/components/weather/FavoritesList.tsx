@@ -1,4 +1,5 @@
-import { FavoriteCard, type IFavorite } from './FavoriteCard';
+import { FavoriteCard } from './FavoriteCard';
+import type { IFavorite } from '@/shared/types';
 
 interface IFavoritesList {
   favorites: IFavorite[];

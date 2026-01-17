@@ -2,19 +2,8 @@ import { useState } from 'react';
 import { MapPin, X, Edit2, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useCurrentWeather } from '@/shared/hooks/useWeather';
-import type { ICoordinates } from '@/shared/types';
-
-export interface IFavorite {
-  id: string;
-  displayName: string;
-  customName?: string;
-  fullName: string;
-  sido: string;
-  si: string;
-  gu: string;
-  dong: string;
-  coords: ICoordinates;
-}
+import type { IFavorite } from '@/shared/types';
+import { getWeatherEmoji } from '@/shared/utils/weatherUtils';
 
 interface IFavoriteCard {
   favorite: IFavorite;
@@ -44,23 +33,6 @@ export const FavoriteCard = ({
 
   const handleViewWeather = () => {
     navigate(`/detail/${favorite.id}`);
-  };
-
-  const getWeatherEmoji = (condition: string) => {
-    switch (condition) {
-      case 'Clear':
-        return '☀️';
-      case 'Clouds':
-        return '☁️';
-      case 'Rain':
-        return '🌧️';
-      case 'Snow':
-        return '❄️';
-      case 'Thunderstorm':
-        return '⛈️';
-      default:
-        return '🌤️';
-    }
   };
 
   return (

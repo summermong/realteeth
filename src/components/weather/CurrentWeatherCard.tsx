@@ -1,5 +1,6 @@
 import { MapPin } from 'lucide-react';
 import type { IWeatherResponse, IForecastResponse } from '../../shared/types';
+import { getWeatherEmoji } from '@/shared/utils/weatherUtils';
 
 interface ICurrentWeatherCard {
   weather: IWeatherResponse | undefined;
@@ -37,23 +38,6 @@ export const CurrentWeatherCard = ({
   }
 
   const weatherIcon = weather.weather[0]?.main;
-
-  const getWeatherEmoji = (condition: string) => {
-    switch (condition) {
-      case 'Clear':
-        return '☀️';
-      case 'Clouds':
-        return '☁️';
-      case 'Rain':
-        return '🌧️';
-      case 'Snow':
-        return '❄️';
-      case 'Thunderstorm':
-        return '⛈️';
-      default:
-        return '🌤️';
-    }
-  };
 
   const formatTime = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
@@ -101,13 +85,13 @@ export const CurrentWeatherCard = ({
         <div className='p-3 rounded-lg bg-blue-50 dark:bg-accent'>
           <p className='text-gray-500 dark:text-muted-foreground'>최저</p>
           <p className='text-sm font-semibold text-gray-800 dark:text-foreground'>
-            {Math.round(weather.main.temp_min).toFixed(1)}°C
+            {Math.round(weather.main.temp_min)}°C
           </p>
         </div>
         <div className='p-3 rounded-lg bg-blue-50 dark:bg-accent'>
           <p className='text-gray-500 dark:text-muted-foreground'>최고</p>
           <p className='text-sm font-semibold text-gray-800 dark:text-foreground'>
-            {Math.round(weather.main.temp_max).toFixed(1)}°C
+            {Math.round(weather.main.temp_max)}°C
           </p>
         </div>
       </div>
