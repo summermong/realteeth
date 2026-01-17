@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCurrentWeather } from '@/shared/hooks/useWeather';
 import type { IFavorite } from '@/shared/types';
 import { getWeatherEmoji } from '@/shared/utils/weatherUtils';
+import { useToast } from '@/shared/ui/toast/useToast';
 
 interface IFavoriteCard {
   favorite: IFavorite;
@@ -26,9 +27,17 @@ export const FavoriteCard = ({
     favorite.coords
   );
 
+  const { showToast } = useToast();
+
   const handleSave = () => {
     onUpdateName(favorite.id, editName);
+    showToast({ message: '즐겨찾기 이름이 수정되었습니다.', icon: '✅' });
     setIsEditing(false);
+  };
+
+  const handleDelete = () => {
+    onRemove(favorite.id);
+    showToast({ message: '즐겨찾기에서 삭제되었습니다.', icon: '🗑️' });
   };
 
   const handleViewWeather = () => {
@@ -71,7 +80,7 @@ export const FavoriteCard = ({
             </button>
           )}
           <button
-            onClick={() => onRemove(favorite.id)}
+            onClick={handleDelete}
             className='p-1 text-red-500 transition-colors rounded dark:text-destructive-foreground hover:bg-red-50 dark:hover:bg-destructive/20'
           >
             <X className='w-4 h-4' />

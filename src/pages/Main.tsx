@@ -15,6 +15,7 @@ import { FavoritesList } from '../components/weather/FavoritesList';
 import SearchLocationBar from '@/features/search-location/SearchLocationBar';
 import type { ICoordinates } from '../shared/types';
 import { Header } from '@/components/layout/Header';
+import { useToast } from '@/shared/ui/toast/useToast';
 
 export const Main = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -38,6 +39,8 @@ export const Main = () => {
     hasFavorite,
   } = useFavorites();
 
+  const { showToast } = useToast();
+
   const coords: ICoordinates | null = selectedLocation?.coords || userCoords;
   const locationName = selectedLocation?.displayName || userLocationName;
   const { data: weather, isLoading: isLoadingWeather } =
@@ -60,9 +63,9 @@ export const Main = () => {
 
     const result = addFavorite(selectedLocation);
     if (result.success) {
-      alert('즐겨찾기에 추가되었습니다.');
+      showToast({ message: '즐겨찾기에 추가되었습니다.', icon: '⭐' });
     } else {
-      alert(result.error);
+      showToast({ message: '즐겨찾기 추가에 실패했습니다.', icon: '❌' });
     }
   };
 
