@@ -19,7 +19,7 @@ export const FavoritesList = ({
       </h2>
 
       {favorites.length === 0 ? (
-        <div className='p-12 text-center bg-white border border-gray-100 shadow-lg dark:bg-card rounded-2xl dark:border-border'>
+        <div className='p-6 text-center bg-white border border-gray-100 shadow-lg dark:bg-card rounded-2xl dark:border-border'>
           <p className='text-gray-500 dark:text-muted-foreground'>
             장소를 검색하고 즐겨찾기에 추가해보세요.
           </p>
