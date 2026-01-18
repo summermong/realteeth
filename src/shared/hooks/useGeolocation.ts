@@ -82,9 +82,9 @@ export const useGeolocation = () => {
       },
       {
         timeout: 30000,
-        enableHighAccuracy: true,
+        enableHighAccuracy: false,
         maximumAge: 0,
-      }
+      },
     );
   }, []);
 
